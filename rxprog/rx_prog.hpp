@@ -9,6 +9,7 @@
 */
 //=====================================================================//
 #include "rx63t_protocol.hpp"
+#include "rx631_protocol.hpp"
 #include "rx24t_protocol.hpp"
 #include "rx64m_protocol.hpp"
 #include "rx65x_protocol.hpp"
@@ -30,7 +31,7 @@ namespace rx {
 		typedef utils::rs232c_io RS232C;
 		RS232C		rs232c_;
 
-		using protocol_type = boost::variant<rx63t::protocol, rx24t::protocol, rx64m::protocol, rx65x::protocol, rx66t::protocol, rx72t::protocol>;
+		using protocol_type = boost::variant<rx63t::protocol, rx24t::protocol, rx64m::protocol, rx65x::protocol, rx66t::protocol, rx72t::protocol, rx631::protocol>;
 		protocol_type protocol_;
 
 		std::string out_section_(uint32_t n, uint32_t num) const {
@@ -149,6 +150,8 @@ namespace rx {
 				protocol_ = rx66t::protocol();
 			} else if(rx.cpu_type_ == "RX72T") {
 				protocol_ = rx72t::protocol();
+			} else if(rx.cpu_type_ == "RX631") {
+				protocol_ = rx631::protocol();
 			} else {
 				std::cerr << "CPU type missmatch: '" << rx.cpu_type_ << "'" << std::endl;
 				return false;

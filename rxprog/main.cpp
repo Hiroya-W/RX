@@ -34,7 +34,7 @@ namespace {
 			if(i >= 16) {
 				i = 0;
 				std::cout << std::endl;
-			} 
+			}
 		}
 #endif
 	}
@@ -226,7 +226,7 @@ int main(int argc, char* argv[])
 		conf_path = conf_file_;
 	} else {  // コマンド、カレントから読んでみる
 		conf_path = get_current_path_(argv[0]) + '/' + conf_file_;
-	}	
+	}
 	if(conf_in_.load(conf_path)) {
 		auto defa = conf_in_.get_default();
 		opts.device = defa.device_;
@@ -438,6 +438,12 @@ int main(int argc, char* argv[])
 		rx.ext_div_ = val;
 	}
 
+	if(rx.cpu_type_ == "RX631"){
+		rx.master_ = 1200;
+		rx.sys_div_ = 8;
+		rx.ext_div_ = 4;
+	}
+
 	//============================ 接続
 	rx::prog prog_(opts.verbose);
 	if(!prog_.start(opts.com_path, com_speed, rx)) {
@@ -487,7 +493,7 @@ int main(int argc, char* argv[])
 				return -1;
 			}
 		}
-		
+
 		if(opts.progress) {
 			std::cout << "Write:  " << std::flush;
 		}
@@ -551,6 +557,7 @@ int main(int argc, char* argv[])
 			std::cout << std::endl << std::flush;
 		}
 	}
+
 
 	prog_.end();
 }

@@ -162,13 +162,13 @@ tarball:
 	*.[hc]pp Makefile ../common/*/*.[hc]pp ../common/*/*.[hc]
 
 bin_zip:
-	$(LK) $(LFLAGS) $(LIBS) $(OBJECTS) $(ICON_OBJ) $(LIBN) -mwindows -o $(TARGET) 
+	$(LK) $(LFLAGS) $(LIBS) $(OBJECTS) $(ICON_OBJ) $(LIBN) -mwindows -o $(TARGET)
 	rm -f $(subst .exe,,$(TARGET))_$(shell date +%Y%m%d%H)_bin.zip
 	zip $(subst .exe,,$(TARGET))_$(shell date +%Y%m%d%H)_bin.zip *.exe *.dll
 
 install:
 	mkdir -p /usr/local/bin
-	cp $(TARGET).exe /usr/local/bin/.
+	cp $(TARGET) /usr/local/bin/.
 	cp $(TARGET).conf /usr/local/bin/.
 
 -include $(DEPENDS)
